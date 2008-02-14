@@ -5,6 +5,7 @@ Summary:	A fully fledged implementation of the ONC/RPC protocol in Java
 Version:	1.0.6
 Release:	%mkrel 1
 Group:		Development/Java
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	LGPLv2+
 URL:		http://remotetea.sourceforge.net/
 Source:		remotetea-src-%{version}.zip
