@@ -1,4 +1,4 @@
-%define gcj_support	1
+%define gcj_support	0
 
 Name:		remotetea
 Summary:	A fully fledged implementation of the ONC/RPC protocol in Java
@@ -36,12 +36,12 @@ UDP/IP transports according to RFC 1831. In particular:
       FUD newspaper, the Wallstreak Journal, and the Infrigenancial Times
       (kind of The Financial Sun when it comes to properly researched
       articles) are all right: Open Source is viral and infects you with
-      true freedom – but freedom still means to respect rights, especially
+      true freedom - freedom still means to respect rights, especially
       the rights of others.
 
 %prep
 %setup -q -n %name
-%{__find} . -name '*.jar' -name '*.class' -exec %{__rm} -f {} \;
+find . -name '*.jar' -name '*.class' -exec %{__rm} -f {} \;
 %{__mkdir} build
 %{__cat} > build.xml <<EOF
 <project name="aTunes" basedir="." default="build-jar">
@@ -52,8 +52,7 @@ UDP/IP transports according to RFC 1831. In particular:
 			</classpath>
 		</javac>
 		<copy todir="build">
-			<fileset dir="src" includes="net/sourceforge/atunes/gui/images/*.*"
-					   excludes="net/sourceforge/atunes/gui/images/*.java"/>
+			<fileset dir="src" />
 		</copy>
 		<jar basedir="build" destfile="jrpcgen-%{version}.jar">
 			<fileset dir="build" includes="*/*.*"/>
@@ -70,6 +69,7 @@ ant build-jar
 %{__rm} -Rf %{buildroot}
 %{__mkdir_p} %{buildroot}%{_javadir}
 %{__cp} -a jrpcgen-%{version}.jar jrpcgen.jar %{buildroot}%{_javadir}
+%{__ln_s} %{_javadir}/jrpcgen.jar %{buildroot}%{_javadir}/oncrpc.jar
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
@@ -87,6 +87,7 @@ ant build-jar
 %doc changelog.html readme.html docstyle.css COPYING.LIB
 %{_javadir}/jrpcgen-%{version}.jar
 %{_javadir}/jrpcgen.jar
+%{_javadir}/oncrpc.jar
 %if %{gcj_support}
 %dir %{_libdir}/gcj/%{name}
 %{_libdir}/gcj/%{name}/*
