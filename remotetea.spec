@@ -3,9 +3,8 @@
 Name:		remotetea
 Summary:	A fully fledged implementation of the ONC/RPC protocol in Java
 Version:	1.0.7
-Release:	%mkrel 2
+Release:	3
 Group:		Development/Java
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	LGPLv2+
 URL:		http://remotetea.sourceforge.net/
 Source:		remotetea-src-%{version}.zip
@@ -16,6 +15,8 @@ BuildArch:	noarch
 BuildRequires:	java-devel
 %endif
 BuildRequires:	ant
+BuildRequires:	locales-en
+
 %description
 Remote Tea implements the complete ONC/RPC protocol for the TCP/IP and
 UDP/IP transports according to RFC 1831. In particular:
@@ -62,11 +63,11 @@ find . -name '*.jar' -name '*.class' -exec %{__rm} -f {} \;
 EOF
 
 %build
+export LC_ALL=ISO-8859-1
 ant build-jar
 %{__ln_s} jrpcgen-%{version}.jar jrpcgen.jar
 
 %install
-%{__rm} -Rf %{buildroot}
 %{__mkdir_p} %{buildroot}%{_javadir}
 %{__cp} -a jrpcgen-%{version}.jar jrpcgen.jar %{buildroot}%{_javadir}
 %{__ln_s} %{_javadir}/jrpcgen.jar %{buildroot}%{_javadir}/oncrpc.jar
@@ -92,3 +93,22 @@ ant build-jar
 %dir %{_libdir}/gcj/%{name}
 %{_libdir}/gcj/%{name}/*
 %endif
+
+
+%changelog
+* Tue Sep 15 2009 Thierry Vignaud <tvignaud@mandriva.com> 1.0.7-2mdv2010.0
++ Revision: 442676
+- rebuild
+
+* Thu Feb 19 2009 Nicolas Vigier <nvigier@mandriva.com> 1.0.7-1mdv2009.1
++ Revision: 342912
+- version 1.0.7
+- disable gcj support
+- add oncrpc.jar symlink
+- fix description
+- import remotetea
+
+  + Thierry Vignaud <tvignaud@mandriva.com>
+    - fix no-buildroot-tag
+
+
