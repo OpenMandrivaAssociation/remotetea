@@ -3,7 +3,7 @@
 Name:		remotetea
 Summary:	A fully fledged implementation of the ONC/RPC protocol in Java
 Version:	1.0.7
-Release:	3
+Release:	4
 Group:		Development/Java
 License:	LGPLv2+
 URL:		http://remotetea.sourceforge.net/
