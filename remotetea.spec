@@ -6,7 +6,7 @@ Version:	1.0.7
 Release:	4
 Group:		Development/Java
 License:	LGPLv2+
-URL:		http://remotetea.sourceforge.net/
+URL:		https://remotetea.sourceforge.net/
 Source:		remotetea-src-%{version}.zip
 %if %{gcj_support}
 BuildRequires:	java-gcj-compat-devel
